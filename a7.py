@@ -55,32 +55,57 @@ class BayesClassifier:
         # files now holds a list of the filenames
         # self.training_data_directory holds the folder name where these files are
 
+        # stored below is how you would load a file with filename given by `filename`
+        # `text` here will be the literal text of the file (i.e. what you would see
+        # if you opened the file in a text editor
+        # text = self.load_file(os.path.join(self.training_data_directory, files[3]))
+        # print(text)
+
         # *Tip:* training can take a while, to make it more transparent, we can use the
         # enumerate function, which loops over something and has an automatic counter.
         # write something like this to track progress (note the `# type: ignore` comment
         # which tells mypy we know better and it shouldn't complain at us on this line):
         for index, filename in enumerate(files, 1): # type: ignore
             print(f"Training on file {index} of {len(files)}")
-            #     <the rest of your code for updating frequencies here>
+        #     <the rest of your code for updating frequencies here>
             text = self.load_file(os.path.join(self.training_data_directory, filename))
             token = self.tokenize(text)
-            print(token)
+            # print(token)
 
-            # we want to fill pos_freqs and neg_freqs with the correct counts of words from
-            # their respective reviews
-            
-            # for each file, if it is a negative file, update (see the Updating frequencies
-            # set of comments for what we mean by update) the frequencies in the negative
-            # frequency dictionary. If it is a positive file, update (again see the Updating
-            # frequencies set of comments for what we mean by update) the frequencies in
-            # the positive frequency dictionary. If it is neither a postive or negative file,
-            # ignore it and move to the next file (this is more just to be safe; we won't
-            # test your code with neutral reviews)
-            
             if filename.startswith(self.pos_file_prefix):
                 self.update_dict(token, self.pos_freqs)
             elif filename.startswith(self.neg_file_prefix):
                 self.update_dict(token, self.neg_freqs)
+
+        print(self.pos_freqs["awesome"])
+        print(self.neg_freqs["awesome"])
+        print(self.pos_freqs["great"])
+        print(self.neg_freqs["great"])
+        print(self.pos_freqs["the"])
+        print(self.neg_freqs["the"])
+
+        # we want to fill pos_freqs and neg_freqs with the correct counts of words from
+        # their respective reviews
+        
+        # for each file, if it is a negative file, update (see the Updating frequencies
+        # set of comments for what we mean by update) the frequencies in the negative
+        # frequency dictionary. If it is a positive file, update (again see the Updating
+        # frequencies set of comments for what we mean by update) the frequencies in the
+        # positive frequency dictionary. If it is neither a postive or negative file,
+        # ignore it and move to the next file (this is more just to be safe; we won't
+        # test your code with neutral reviews)
+        
+
+        # Updating frequences: to update the frequencies for each file, you need to get
+        # the text of the file, tokenize it, then update the appropriate dictionary for
+        # those tokens. We've asked you to write a function `update_dict` that will make
+        # your life easier here. Write that function first then pass it your list of
+        # tokens from the file and the appropriate dictionary
+        
+
+        # for debugging purposes, it might be useful to print out the tokens and their
+        # frequencies for both the positive and negative dictionaries
+        
 
         # once you have gone through all the files, save the frequency dictionaries to
         # avoid extra work in the future (using the save_dict method). The objects you
@@ -89,6 +114,51 @@ class BayesClassifier:
         self.save_dict(self.pos_freqs, self.pos_filename)
         self.save_dict(self.neg_freqs, self.neg_filename)
 
+
+
+    def classify(self, text: str) -> str:
+        """Classifies given text as positive, negative or neutral from calculating the
+        most likely document class to which the target string belongs
+
+        Args:
+            text - text to classify
+
+        Returns:
+            classification, either positive, negative or neutral
+        """
+        # TODO: fill me out
+        print(self.pos_freqs)
+        
+        # get a list of the individual tokens that occur in text
+        
+
+        # create some variables to store the positive and negative probability. since
+        # we will be adding logs of probabilities, the initial values for the positive
+        # and negative probabilities are set to 0
+        
+
+        # get the sum of all of the frequencies of the features in each document class
+        # (i.e. how many words occurred in all documents for the given class) - this
+        # will be used in calculating the probability of each document class given each
+        # individual feature
+        
+
+        # for each token in the text, calculate the probability of it occurring in a
+        # postive document and in a negative document and add the logs of those to the
+        # running sums. when calculating the probabilities, always add 1 to the numerator
+        # of each probability for add one smoothing (so that we never have a probability
+        # of 0)
+
+
+        # for debugging purposes, it may help to print the overall positive and negative
+        # probabilities
+        
+
+        # determine whether positive or negative was more probable (i.e. which one was
+        # larger)
+        
+
+        # return a string of "positive" or "negative"
 
     def load_file(self, filepath: str) -> str:
         """Loads text of given file
@@ -169,7 +239,12 @@ class BayesClassifier:
             freqs - dictionary of frequencies to update
         """
         # TODO: your work here
-        pass  # remove this line once you've implemented this method
+        # print("update dict")
+        for word in words:
+            if word in freqs:
+                freqs[word] += 1
+            else:
+                freqs[word] = 1
 
 
 if __name__ == "__main__":
