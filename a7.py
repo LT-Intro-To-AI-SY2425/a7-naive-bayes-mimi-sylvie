@@ -337,13 +337,18 @@ if __name__ == "__main__":
     print("\nThe following is to test out the method with each groups responses")
     print(b.classify("Summer break is almost here.  I am super excited and I know that it's going to be the best"))
     # Complete two more positive sentiment strings
-
+    print(b.classify("I love Arsenal. They are the best football team in the world. It is so fun to be a fan."))
+    print(b.classify("Watching football is my favorite thing to do. I love watching the games on the weekend with my family."))
     # Negative sentiment statements
     print(b.classify("I am nervous that I won't do well on the AP tests.  I have studied, but I don't think I'll do that well"))
     # Complete two more negative sentiment strings
-
-
+    print(b.classify("I am scared about the next Arsenal game. If they lose I will be so sad"))
+    print(b.classify("I am stressed about my comp gov grade. I have not studied much and I don’t want to get a B."))
     # Two positive reviews
-
+    print(b.classify("This was the most delicious Italian food I’ve ever eaten. Incredible. I had the lobster ravioli. Had a great sauce and very flavorful."))
+    print(b.classify("Amazing service amazing food, amazing atmosphere came here for our 5 year anniversary and got a reservation with custom menu’s. Will definitely come back for a special occasion. Food was delicious filling. This place was not 5/5 it was 10/5!!!!!! Great for couples for families and more! Right by the river with great food can’t beat it"))
 
     # Two negative reviews
+
+    print(b.classify("Stayed out of curiousity as I've heard the really horrible reputation of it. The rooms are small dirty and stinky. It's beyond just dirty. I rather live on the streets than stay in this peice of doodoo of a hotel again. NO MATTER HOW DESPERATE YOU ARE. DO NOT COME TO THIS HOTEL. COS IT IS THE WORST ONE IN THE WHOLE WORLD."))
+    print(b.classify("Too crowded , I have to cancel my membership and they charged $58. When I spoke with them they told me there was not committment . The manager should do another job, he is definetly not try to help . Very bad experiences"))
